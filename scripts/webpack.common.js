@@ -1,20 +1,13 @@
+/* eslint-disable import/no-extraneous-dependencies */
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   entry: './client/index.tsx',
   output: {
-    path: path.join(__dirname, '..', 'build', 'dist'),
-    filename: 'index.bundle.js',
-  },
-  devServer: {
-    inline: true,
-    port: 3000,
-    historyApiFallback: true,
-    contentBase: './public',
-    proxy: {
-      '/api': 'http://localhost:3001',
-    },
+    path: path.join(__dirname, '..', 'build-client'),
+    filename: '[name].bundle.js',
+    publicPath: '/public',
   },
   resolve: {
     extensions: ['.tsx', '.ts', '.jsx', '.js'],
@@ -30,15 +23,12 @@ module.exports = {
         test: /\.(jpg|jpeg|png|svg)?$/,
         use: ['file-loader'],
       },
-      {
-        test: /\.css?$/,
-        use: ['style-loader', 'css-loader'],
-      },
     ],
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: './public/index.html',
+      template: path.join(__dirname, '..', 'public', 'index.html'),
+      favicon: path.join(__dirname, '..', 'public', 'favicon.ico'),
     }),
   ],
 };

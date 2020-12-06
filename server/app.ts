@@ -13,15 +13,15 @@ app.enable('trust proxy');
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static('public'));
-app.use(express.static(path.resolve(__dirname, '../dist')));
+
+app.use('/public', express.static(path.resolve(__dirname, '../../build-client')));
 
 app.get('/api', (req, res) => {
   res.send({ hello: 'world' });
 });
 
-app.get('*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, '../dist/index.html'));
+app.get('/', (req, res) => {
+  res.sendFile(path.resolve(__dirname, '../../build-client/index.html'));
 });
 
 app.listen(3001, () => {
