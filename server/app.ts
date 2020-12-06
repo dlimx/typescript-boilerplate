@@ -2,6 +2,7 @@ import express from 'express';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 import dotenv from 'dotenv';
+import path from 'path';
 
 dotenv.config();
 
@@ -13,11 +14,16 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static('public'));
+app.use(express.static(path.resolve(__dirname, '../dist')));
 
-app.get('/', (req, res) => {
-  res.send('Hello ME!');
+app.get('/api', (req, res) => {
+  res.send({ hello: 'world' });
 });
 
-app.listen(3000, () => {
-  console.log('Example app listening on port 3000!');
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, '../dist/index.html'));
+});
+
+app.listen(3001, () => {
+  console.log('Example app listening on port 3001!');
 });

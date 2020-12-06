@@ -6,6 +6,7 @@ const defaultRules = {
   'prettier/prettier': 'error',
   'import/prefer-default-export': 'off',
   'import/no-default-export': 'error',
+  'max-len': 'off',
 };
 
 module.exports = {
@@ -19,11 +20,7 @@ module.exports = {
     {
       files: ['*.ts', '*.tsx'],
       plugins: [...defaultPlugins, '@typescript-eslint'],
-      extends: [
-        ...defaultExtends,
-        'airbnb-typescript',
-        'prettier/@typescript-eslint',
-      ],
+      extends: [...defaultExtends, 'airbnb-typescript', 'prettier/@typescript-eslint'],
       parser: '@typescript-eslint/parser',
       parserOptions: {
         project: './tsconfig.json',
